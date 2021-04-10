@@ -21,10 +21,11 @@ namespace BattleBuddy
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            Handler bestiary = new Handler();
             if (checkBoxMM.Checked)
             {
-                Handler bestiary = new Handler();
-                bestiary.ImportJson(@"D:\Code\Projects\01\BattleBuddy\json\mm.json");
+                
+                bestiary.ImportJson("mm");
             }
             Form main = new Main();
             this.Hide();
