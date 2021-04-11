@@ -15,13 +15,14 @@ namespace JsonHandler
             Console.WriteLine("Name: " + NewBestiary.monster[0].name);*/
     public class Handler
     {
-        public void ImportJson(string file)
+        public List<Monster> ImportJson(string file)
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"json\", file);
             string json = File.ReadAllText(path);
             var jsonDeserial = JsonConvert.DeserializeObject<bestiary>(json);
             List<Monster> monsters = new List<Monster>();
             monsters = jsonDeserial.monster;
+            return monsters;
 
 
         }
