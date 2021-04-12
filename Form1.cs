@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using JsonHandler;
 
 namespace BattleBuddy
 {
@@ -16,24 +15,26 @@ namespace BattleBuddy
         public FormDataSelect()
         {
             InitializeComponent();
-            
         }
-
+        public static List<string> selected = new List<string>();
         private void btnStart_Click(object sender, EventArgs e)
         {
             
+
             if (checkBoxMM.Checked)
             {
 
-                
+                selected.Add("minibeast.json");
             }
-            Handler handler = new Handler();
-            List<Monster> monlist = handler.ImportJson("mm.json");
-            MessageBox.Show(monlist.Count.ToString());
-            Form main = new Main();
+            if (checkBoxHomebrew.Checked)
+            {
+                //selected.Add("homebrew.json");
+            }
             this.Hide();
+            Main main = new Main();
             main.ShowDialog();
-            
+
+
         }
     }
 }
