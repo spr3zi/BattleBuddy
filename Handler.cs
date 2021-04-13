@@ -4,18 +4,12 @@ using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace JsonHandler
-{    //Keeping the next comment block as reference for implementing a bestiary
-
-
-    /*        string path = @"D:\Code\Projects\BattleBuddy-MSSAProject\bestiarymm.json";
-            string jsonString = File.ReadAllText(path);
-            var NewBestiary = JsonConvert.DeserializeObject<bestiary>(jsonString);
-            Console.WriteLine("Number of monsters: " + NewBestiary.monster.Count());
-            Console.WriteLine("Name: " + NewBestiary.monster[0].name);*/
-    public class Handler
+namespace BattleBuddy
+{
+    class JsonHandler
     {
-        public List<Monster> ImportJson(string file)
+        //Import functions
+        public List<Monster> ImportMonster(string file)
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"json\", file);
             string json = File.ReadAllText(path);
@@ -23,16 +17,106 @@ namespace JsonHandler
             List<Monster> monsters = new List<Monster>();
             monsters = jsonDeserial.monster;
             return monsters;
-
-
+        }
+        public List<Player> ImportPlayer(string file)
+        {
+            string path = Path.Combine(Environment.CurrentDirectory, @"json\", file);
+            string json = File.ReadAllText(path);
+            var jsonDeserial = JsonConvert.DeserializeObject<PlayerList>(json);
+            List<Player> players = new List<Player>();
+            players = jsonDeserial.player;
+            return players;
         }
     }
 
-
+    
     public class bestiary
     {
         public List<Monster> monster { get; set; }
     }
+
+    public class PlayerList
+    {
+        public List<Player> player { get; set; }
+    }
+
+    public class Creature
+    {
+        public string name { get; set; }
+        public int ac { get; set; }
+        public int hp { get; set; }
+        public int speed { get; set; }
+        public int str { get; set; }
+        public int dex { get; set; }
+        public int con { get; set; }
+        public int @int { get; set; }
+        public int wis { get; set; }
+        public int cha { get; set; }
+    }
+    public class Player : Creature
+    {
+        public string race { get; set; }
+        public string @class { get; set; }
+    }
+
+    #region Monster Definitions
+    public class Monster : Creature
+    {
+        public string source { get; set; }
+        public int page { get; set; }
+        public List<OtherSource> otherSources { get; set; }
+        public string size { get; set; }
+        public object type { get; set; }
+        public List<string> alignment { get; set; }
+        public new List<object> ac { get; set; }
+        public new Hp hp { get; set; }
+        #region in my way
+        public new Speed speed { get; set; }
+        public int str { get; set; }
+        public int dex { get; set; }
+        public int con { get; set; }
+        public int @int { get; set; }
+        public int wis { get; set; }
+        public int cha { get; set; }
+        public Skill skill { get; set; }
+        public int passive { get; set; }
+        public List<string> languages { get; set; }
+        public string cr { get; set; }
+        public List<Trait> trait { get; set; }
+        public List<Action> action { get; set; }
+        public List<string> environment { get; set; }
+        public bool hasToken { get; set; }
+        public SoundClip soundClip { get; set; }
+        public List<string> languageTags { get; set; }
+        public List<string> damageTags { get; set; }
+        public List<string> miscTags { get; set; }
+        public bool hasFluff { get; set; }
+        public bool hasFluffImages { get; set; }
+        public bool? srd { get; set; }
+        public Save save { get; set; }
+        public List<string> senses { get; set; }
+        public List<Legendary> legendary { get; set; }
+        public LegendaryGroup legendaryGroup { get; set; }
+        public List<string> traitTags { get; set; }
+        public List<string> senseTags { get; set; }
+        public List<string> actionTags { get; set; }
+        public List<string> conditionInflict { get; set; }
+        public List<string> conditionInflictLegendary { get; set; }
+        public List<object> immune { get; set; }
+        public List<Spellcasting> spellcasting { get; set; }
+        public List<string> spellcastingTags { get; set; }
+        public string group { get; set; }
+        public string dragonCastingColor { get; set; }
+        public List<object> resist { get; set; }
+        public List<string> conditionImmune { get; set; }
+        public List<string> conditionInflictSpell { get; set; }
+        public List<Variant> variant { get; set; }
+        public List<AltArt> altArt { get; set; }
+        public List<string> vulnerable { get; set; }
+        public List<Reaction> reaction { get; set; }
+        public bool? familiar { get; set; }
+    }
+    #endregion
     public class OtherSource
     {
         public string source { get; set; }
@@ -219,68 +303,5 @@ namespace JsonHandler
         public string name { get; set; }
         public List<string> entries { get; set; }
     }
-
-    public class Monster
-    {
-        public string name { get; set; }
-        public string source { get; set; }
-        public int page { get; set; }
-        public List<OtherSource> otherSources { get; set; }
-        public string size { get; set; }
-        public object type { get; set; }
-        public List<string> alignment { get; set; }
-        public List<object> ac { get; set; }
-        public Hp hp { get; set; }
-        public Speed speed { get; set; }
-        public int str { get; set; }
-        public int dex { get; set; }
-        public int con { get; set; }
-        public int @int { get; set; }
-        public int wis { get; set; }
-        public int cha { get; set; }
-        public Skill skill { get; set; }
-        public int passive { get; set; }
-        public List<string> languages { get; set; }
-        public string cr { get; set; }
-        public List<Trait> trait { get; set; }
-        public List<Action> action { get; set; }
-        public List<string> environment { get; set; }
-        public bool hasToken { get; set; }
-        public SoundClip soundClip { get; set; }
-        public List<string> languageTags { get; set; }
-        public List<string> damageTags { get; set; }
-        public List<string> miscTags { get; set; }
-        public bool hasFluff { get; set; }
-        public bool hasFluffImages { get; set; }
-        public bool? srd { get; set; }
-        public Save save { get; set; }
-        public List<string> senses { get; set; }
-        public List<Legendary> legendary { get; set; }
-        public LegendaryGroup legendaryGroup { get; set; }
-        public List<string> traitTags { get; set; }
-        public List<string> senseTags { get; set; }
-        public List<string> actionTags { get; set; }
-        public List<string> conditionInflict { get; set; }
-        public List<string> conditionInflictLegendary { get; set; }
-        public List<object> immune { get; set; }
-        public List<Spellcasting> spellcasting { get; set; }
-        public List<string> spellcastingTags { get; set; }
-        public string group { get; set; }
-        public string dragonCastingColor { get; set; }
-        public List<object> resist { get; set; }
-        public List<string> conditionImmune { get; set; }
-        public List<string> conditionInflictSpell { get; set; }
-        public List<Variant> variant { get; set; }
-        public List<AltArt> altArt { get; set; }
-        public List<string> vulnerable { get; set; }
-        public List<Reaction> reaction { get; set; }
-        public bool? familiar { get; set; }
-    }
-
-    public class Root
-    {
-        public List<Monster> monster { get; set; }
-    }
-
-
 }
+#endregion

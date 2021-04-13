@@ -85,6 +85,7 @@ namespace BattleBuddy
             this.Controls.Add(this.lblSelectBestiaryTitle);
             this.Name = "FormDataSelect";
             this.Text = "Select Bestiary";
+            this.Load += new System.EventHandler(this.FormDataSelect_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
