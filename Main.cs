@@ -23,13 +23,16 @@ namespace BattleBuddy
         {
             Application.Exit();
         }
-        
-        private void Main_Load(object sender, EventArgs e)
+
+
+        public static List<Monster> monlist = new List<Monster>();
+        public static List<Player> playerlist = new List<Player>();
+        public void Main_Load(object sender, EventArgs e)
         {
             //Load monster data from json
             JsonHandler handler = new JsonHandler();
             string import = FormDataSelect.selected[0];
-            List<Monster> monlist = handler.ImportMonster(import);
+            monlist = handler.ImportMonster(import);
 
             //Build the monster data grid
             List<string> monName = new List<string>();
@@ -37,12 +40,21 @@ namespace BattleBuddy
             {
                 monName.Add(i.name);
             }
-            var monNameString = monName.Select(s => new { Name = s }).ToList();
-            dataGridMonsterAdd.DataSource = monNameString;
+            var monListGrid = monlist.Select(x => new
+            {
+                Name = x.name
+            }).ToList();
+            //var monNameString = monlist.Select(s => new { Name= s }).ToList();
+            //dataGridMonsterAdd.DataSource = monNameString;
+            //dataGridMonsterAdd.DataSource = monlist.Select(o => new MyViewModel()
+            //{
+            //    Name = o.name
+            //});
+            dataGridMonsterAdd.DataSource = monListGrid;
 
 
             //Load player data from json
-            List<Player> playerlist = handler.ImportPlayer("player.json");
+            playerlist = handler.ImportPlayer("player.json");
 
             //Builds the player data grid
             List<string> playerName = new List<string>();
@@ -57,25 +69,27 @@ namespace BattleBuddy
         #endregion
 
         //Create lists for active selected data grid
-        protected List<string> selectedNameStrings = new List<string>();
-        protected List<Object> creatures = new List<object>();
+        public static List<string> creatures = new List<string>();
         
-
     #region buttons
     private void btnAdd_Click(object sender, EventArgs e)
         {
             
             if (DBTabControl.SelectedTab == tabPage1)
             {
-                creatures.Add(dataGridPlayerAdd.CurrentRow.Cells[0].Value);
-                DataRefresh();
+                var i = dataGridPlayerAdd.CurrentRow.Cells[0].Value;
+                var j = Convert.ToString(i);
+                creatures.Add(j);
             }
             if (DBTabControl.SelectedTab == tabPage2)
             {
-                creatures.Add(dataGridMonsterAdd.CurrentRow.Cells[0].Value);
+                var i =dataGridMonsterAdd.CurrentRow.Cells[0].Value;
+                var j = Convert.ToString(i);
+                creatures.Add(j);
                 
-                DataRefresh();
+                
             }
+            DataRefresh();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -96,7 +110,14 @@ namespace BattleBuddy
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            Combat combat = new Combat();
+            combat.ShowDialog();
+        }
 
+        class MyViewModel
+        {
+            public string Name { get; set; }
         }
     }
 }

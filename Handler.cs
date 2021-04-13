@@ -8,6 +8,7 @@ namespace BattleBuddy
 {
     class JsonHandler
     {
+        //Import functions
         public List<Monster> ImportMonster(string file)
         {
             string path = Path.Combine(Environment.CurrentDirectory, @"json\", file);
@@ -28,6 +29,7 @@ namespace BattleBuddy
         }
     }
 
+    
     public class bestiary
     {
         public List<Monster> monster { get; set; }
@@ -57,6 +59,7 @@ namespace BattleBuddy
         public string @class { get; set; }
     }
 
+    #region Monster Definitions
     public class Monster : Creature
     {
         public string source { get; set; }
@@ -65,8 +68,9 @@ namespace BattleBuddy
         public string size { get; set; }
         public object type { get; set; }
         public List<string> alignment { get; set; }
-        public List<object> ac { get; set; }
+        public new List<object> ac { get; set; }
         public new Hp hp { get; set; }
+        #region in my way
         public new Speed speed { get; set; }
         public int str { get; set; }
         public int dex { get; set; }
@@ -112,6 +116,7 @@ namespace BattleBuddy
         public List<Reaction> reaction { get; set; }
         public bool? familiar { get; set; }
     }
+    #endregion
     public class OtherSource
     {
         public string source { get; set; }
@@ -299,3 +304,4 @@ namespace BattleBuddy
         public List<string> entries { get; set; }
     }
 }
+#endregion

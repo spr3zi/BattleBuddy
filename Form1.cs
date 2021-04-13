@@ -24,7 +24,7 @@ namespace BattleBuddy
             if (checkBoxMM.Checked)
             {
 
-                selected.Add("minibeast.json");
+                selected.Add("mm.json");
             }
             if (checkBoxHomebrew.Checked)
             {
@@ -34,6 +34,11 @@ namespace BattleBuddy
             Main main = new Main();
             main.ShowDialog();
 
+
+        }
+
+        private void FormDataSelect_Load(object sender, EventArgs e)
+        {
 
         }
     }

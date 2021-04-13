@@ -40,6 +40,8 @@ namespace BattleBuddy
             this.lblCombatTracker = new System.Windows.Forms.Label();
             this.lblDatabase = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
+            this.btnCreatePlayer = new System.Windows.Forms.Button();
+            this.btnCreateMonster = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridActive)).BeginInit();
             this.DBTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -63,7 +65,7 @@ namespace BattleBuddy
             this.DBTabControl.Location = new System.Drawing.Point(308, 34);
             this.DBTabControl.Name = "DBTabControl";
             this.DBTabControl.SelectedIndex = 0;
-            this.DBTabControl.Size = new System.Drawing.Size(190, 545);
+            this.DBTabControl.Size = new System.Drawing.Size(194, 545);
             this.DBTabControl.TabIndex = 1;
             // 
             // tabPage1
@@ -72,17 +74,18 @@ namespace BattleBuddy
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(182, 519);
+            this.tabPage1.Size = new System.Drawing.Size(186, 519);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Players";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridPlayerAdd
             // 
+            this.dataGridPlayerAdd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridPlayerAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridPlayerAdd.Location = new System.Drawing.Point(0, 0);
             this.dataGridPlayerAdd.Name = "dataGridPlayerAdd";
-            this.dataGridPlayerAdd.Size = new System.Drawing.Size(179, 567);
+            this.dataGridPlayerAdd.Size = new System.Drawing.Size(245, 567);
             this.dataGridPlayerAdd.TabIndex = 0;
             // 
             // tabPage2
@@ -91,23 +94,24 @@ namespace BattleBuddy
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(182, 519);
+            this.tabPage2.Size = new System.Drawing.Size(186, 519);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Monsters";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // dataGridMonsterAdd
             // 
+            this.dataGridMonsterAdd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridMonsterAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMonsterAdd.Location = new System.Drawing.Point(1, 0);
             this.dataGridMonsterAdd.Name = "dataGridMonsterAdd";
-            this.dataGridMonsterAdd.Size = new System.Drawing.Size(178, 564);
+            this.dataGridMonsterAdd.Size = new System.Drawing.Size(244, 519);
             this.dataGridMonsterAdd.TabIndex = 0;
             // 
             // btnAdd
             // 
             this.btnAdd.AccessibleRole = System.Windows.Forms.AccessibleRole.OutlineButton;
-            this.btnAdd.Location = new System.Drawing.Point(185, 247);
+            this.btnAdd.Location = new System.Drawing.Point(185, 219);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(117, 23);
             this.btnAdd.TabIndex = 2;
@@ -118,7 +122,7 @@ namespace BattleBuddy
             // btnRemove
             // 
             this.btnRemove.AccessibleRole = System.Windows.Forms.AccessibleRole.OutlineButton;
-            this.btnRemove.Location = new System.Drawing.Point(185, 276);
+            this.btnRemove.Location = new System.Drawing.Point(185, 248);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(117, 23);
             this.btnRemove.TabIndex = 3;
@@ -146,19 +150,39 @@ namespace BattleBuddy
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(185, 468);
+            this.btnStart.Location = new System.Drawing.Point(164, 585);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(117, 23);
+            this.btnStart.Size = new System.Drawing.Size(159, 45);
             this.btnStart.TabIndex = 6;
             this.btnStart.Text = "Start Battle!";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
+            // btnCreatePlayer
+            // 
+            this.btnCreatePlayer.Location = new System.Drawing.Point(185, 297);
+            this.btnCreatePlayer.Name = "btnCreatePlayer";
+            this.btnCreatePlayer.Size = new System.Drawing.Size(117, 23);
+            this.btnCreatePlayer.TabIndex = 7;
+            this.btnCreatePlayer.Text = "Create Player";
+            this.btnCreatePlayer.UseVisualStyleBackColor = true;
+            // 
+            // btnCreateMonster
+            // 
+            this.btnCreateMonster.Location = new System.Drawing.Point(185, 326);
+            this.btnCreateMonster.Name = "btnCreateMonster";
+            this.btnCreateMonster.Size = new System.Drawing.Size(117, 23);
+            this.btnCreateMonster.TabIndex = 8;
+            this.btnCreateMonster.Text = "Create Monster";
+            this.btnCreateMonster.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 642);
+            this.ClientSize = new System.Drawing.Size(624, 642);
+            this.Controls.Add(this.btnCreateMonster);
+            this.Controls.Add(this.btnCreatePlayer);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.lblDatabase);
             this.Controls.Add(this.lblCombatTracker);
@@ -194,5 +218,7 @@ namespace BattleBuddy
         private System.Windows.Forms.Label lblCombatTracker;
         private System.Windows.Forms.Label lblDatabase;
         private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnCreatePlayer;
+        private System.Windows.Forms.Button btnCreateMonster;
     }
 }
