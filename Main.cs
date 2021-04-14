@@ -12,6 +12,7 @@ namespace BattleBuddy
 {
     public partial class Main : Form
     {
+        
         #region Load Data
         public Main()
         {
@@ -44,26 +45,12 @@ namespace BattleBuddy
             {
                 Name = x.name
             }).ToList();
-            //var monNameString = monlist.Select(s => new { Name= s }).ToList();
-            //dataGridMonsterAdd.DataSource = monNameString;
-            //dataGridMonsterAdd.DataSource = monlist.Select(o => new MyViewModel()
-            //{
-            //    Name = o.name
-            //});
             dataGridMonsterAdd.DataSource = monListGrid;
 
 
-            //Load player data from json
+            //Load player data from json, puts in the data grid
             playerlist = handler.ImportPlayer("player.json");
-
-            //Builds the player data grid
-            List<string> playerName = new List<string>();
-            foreach (Creature i in playerlist)
-            {
-                playerName.Add(i.name);
-            }
-            var playerNameString = playerName.Select(s => new { Name = s }).ToList();
-            dataGridPlayerAdd.DataSource = playerNameString;
+            PlayerList();
 
         }
         #endregion
@@ -86,17 +73,23 @@ namespace BattleBuddy
                 var i =dataGridMonsterAdd.CurrentRow.Cells[0].Value;
                 var j = Convert.ToString(i);
                 creatures.Add(j);
-                
-                
             }
             DataRefresh();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
+            if (creatures.Count == 0)
+            {
+                return;
+            }
+            else
+            {
+                creatures.Remove((string)dataGridActive.CurrentRow.Cells[0].Value);
+
+                DataRefresh();
+            }
             
-            
-            DataRefresh();
         }
         #endregion
         
@@ -105,19 +98,68 @@ namespace BattleBuddy
             var creatureNames = creatures.Select(s => new { Name = s }).ToList();
             dataGridActive.DataSource = null;
             dataGridActive.DataSource = creatureNames;
-            
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             this.Hide();
             Combat combat = new Combat();
+            combat.parent = this;
             combat.ShowDialog();
         }
-
-        class MyViewModel
+        private void btnClear_Click(object sender, EventArgs e)
         {
-            public string Name { get; set; }
+            creatures.Clear();
+            DataRefresh();
+        }
+        public static object viewer = new object();
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            
+            if (DBTabControl.SelectedTab == tabPage1)
+            {
+                var i = dataGridPlayerAdd.CurrentRow.Cells[0].Value;
+                var j = GetPlayerByName(i.ToString());
+                View.playView = j;
+                View.ViewChoice = false;
+            }
+            if (DBTabControl.SelectedTab == tabPage2)
+            {
+                var i = dataGridMonsterAdd.CurrentRow.Cells[0].Value.ToString();
+                var j  = GetMonsterByName(i);
+                View.monView = j;
+                View.ViewChoice = true;
+
+            }
+            View view = new View();
+            view.ShowDialog();
+        }
+        public Monster GetMonsterByName (string search)
+        {
+            var mon = monlist.Where(monster => monster.name == search).FirstOrDefault();
+            return mon;
+        }
+        public Player GetPlayerByName (string search)
+        {
+            var play = playerlist.Where(player => player.name == search).FirstOrDefault();
+            return play;
+        }
+
+        private void btnCreatePlayer_Click(object sender, EventArgs e)
+        {
+            AddPlayer addplayer = new AddPlayer();
+            addplayer.ShowDialog();
+        }
+
+        public void PlayerList()
+        {
+            List<string> playerName = new List<string>();
+            foreach (Creature i in playerlist)
+            {
+                playerName.Add(i.name);
+            }
+            var playerNameString = playerName.Select(s => new { Name = s }).ToList();
+            dataGridPlayerAdd.DataSource = playerNameString;
         }
     }
 }
