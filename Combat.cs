@@ -25,8 +25,8 @@ namespace BattleBuddy
         private void Combat_Load(object sender, EventArgs e)
         {
             LoadCreatures(creatures);
-            
-            
+            InitializeTurnOrder();
+            lblTurnOrder.Text = sortedNames[0];
         }
         protected List<Combatants> combatants = new List<Combatants>();
         protected void LoadCreatures(List<string> list)
@@ -121,15 +121,47 @@ namespace BattleBuddy
             List<Combatants> sorted = combatants.OrderByDescending(o => o.Initiative).ToList();
             dataGridCombat.DataSource = sorted;
             txtBoxHealth.Clear();
-            //dataGridCombat.DataSource = sorted.Select(o => new Combatants
-            //{
-            //    Name = o.Name,
-            //    Initiative = o.Initiative,
-            //    currentHealth = o.currentHealth,
-            //    AC = o.AC
-            //});
-            //dataGridCombat.Columns[2].HeaderText = "Health";
-            //dataGridCombat.Columns[3].HeaderText = "Armor Class";
+            dataGridCombat.Columns[2].HeaderText = "Health";
+            dataGridCombat.Columns[3].HeaderText = "Max Health";
+            dataGridCombat.Columns[dataGridCombat.Columns.Count-1].Visible = false;
+        }
+
+        List<string> sortedNames = new List<string>();
+        protected void InitializeTurnOrder() 
+        {
+
+            List<Combatants> sorted = combatants.OrderByDescending(o => o.Initiative).ToList();
+            foreach(Combatants i in sorted)
+            {
+                sortedNames.Add(i.Name);
+            }
+
+        }
+        int index = 0;
+        int roundCount = 1;
+        
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (index < sortedNames.Count)
+            {
+                index++;
+                
+            }   
+            if (index == sortedNames.Count)
+            {
+                index = 0;
+                roundCount++;
+            }
+            lblTurnOrder.Text = sortedNames[index];
+            lblRoundCount.Text = roundCount.ToString();
+            dataGridCombat.CurrentCell = dataGridCombat.Rows[index].Cells[0];
+        }
+
+        public Main parent;
+        private void btnEndFight_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.parent.Show();
         }
     }
 

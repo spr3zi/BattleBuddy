@@ -42,6 +42,8 @@ namespace BattleBuddy
             this.btnStart = new System.Windows.Forms.Button();
             this.btnCreatePlayer = new System.Windows.Forms.Button();
             this.btnCreateMonster = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnView = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridActive)).BeginInit();
             this.DBTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -133,7 +135,7 @@ namespace BattleBuddy
             // lblCombatTracker
             // 
             this.lblCombatTracker.AutoSize = true;
-            this.lblCombatTracker.Location = new System.Drawing.Point(48, 34);
+            this.lblCombatTracker.Location = new System.Drawing.Point(66, 40);
             this.lblCombatTracker.Name = "lblCombatTracker";
             this.lblCombatTracker.Size = new System.Drawing.Size(63, 13);
             this.lblCombatTracker.TabIndex = 4;
@@ -142,7 +144,7 @@ namespace BattleBuddy
             // lblDatabase
             // 
             this.lblDatabase.AutoSize = true;
-            this.lblDatabase.Location = new System.Drawing.Point(309, 9);
+            this.lblDatabase.Location = new System.Drawing.Point(354, 18);
             this.lblDatabase.Name = "lblDatabase";
             this.lblDatabase.Size = new System.Drawing.Size(102, 13);
             this.lblDatabase.TabIndex = 5;
@@ -160,27 +162,50 @@ namespace BattleBuddy
             // 
             // btnCreatePlayer
             // 
-            this.btnCreatePlayer.Location = new System.Drawing.Point(185, 297);
+            this.btnCreatePlayer.Location = new System.Drawing.Point(185, 469);
             this.btnCreatePlayer.Name = "btnCreatePlayer";
             this.btnCreatePlayer.Size = new System.Drawing.Size(117, 23);
             this.btnCreatePlayer.TabIndex = 7;
             this.btnCreatePlayer.Text = "Create Player";
             this.btnCreatePlayer.UseVisualStyleBackColor = true;
+            this.btnCreatePlayer.Click += new System.EventHandler(this.btnCreatePlayer_Click);
             // 
             // btnCreateMonster
             // 
-            this.btnCreateMonster.Location = new System.Drawing.Point(185, 326);
+            this.btnCreateMonster.Location = new System.Drawing.Point(185, 498);
             this.btnCreateMonster.Name = "btnCreateMonster";
             this.btnCreateMonster.Size = new System.Drawing.Size(117, 23);
             this.btnCreateMonster.TabIndex = 8;
             this.btnCreateMonster.Text = "Create Monster";
             this.btnCreateMonster.UseVisualStyleBackColor = true;
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(185, 323);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(117, 23);
+            this.btnClear.TabIndex = 9;
+            this.btnClear.Text = "Clear List";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnView
+            // 
+            this.btnView.Location = new System.Drawing.Point(199, 56);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(103, 23);
+            this.btnView.TabIndex = 10;
+            this.btnView.Text = "View >>";
+            this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 642);
+            this.ClientSize = new System.Drawing.Size(501, 642);
+            this.Controls.Add(this.btnView);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnCreateMonster);
             this.Controls.Add(this.btnCreatePlayer);
             this.Controls.Add(this.btnStart);
@@ -220,5 +245,7 @@ namespace BattleBuddy
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnCreatePlayer;
         private System.Windows.Forms.Button btnCreateMonster;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnView;
     }
 }
